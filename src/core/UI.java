@@ -6,10 +6,22 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.awt.event.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class UI implements UIProvider {
+	//
+	private static String basePath = System.getProperty("user.dir");
+	//
+	private static Path createDBImagePath = Paths.get(basePath+"\\src", "images", "createDB.png");
+	//
+	private static Path openExistDBImagePath = Paths.get(basePath+"\\src", "images", "openDB.png");
+	//
+	private static Path saveCurrentDBImagePath = Paths.get(basePath+"\\src", "images", "saveDB.png");
+	
 	//Инстанс UI
 	private static UI instance;
 	
@@ -27,11 +39,11 @@ public class UI implements UIProvider {
 	
 	private static JToolBar toolBar; // Тулбар (Идёт под шапкой)
 	//Кнопка тулбара "Создание новой базы паролей"
-	private static JButton createNewDatabase = createToolbarButton("C:\\Users\\kolan\\eclipse-workspace\\PasswordManager\\src\\images\\createDB.png", "Создать новую базу паролей");
+	private static JButton createNewDatabase = createToolbarButton(createDBImagePath.toString(), "Создать новую базу паролей");
 	//Кнопка тулбара "Открытие базы паролей"
-	private static JButton openExistDatabase = createToolbarButton("C:\\Users\\kolan\\eclipse-workspace\\PasswordManager\\src\\images\\openDB.png", "Открыть базу паролей");
+	private static JButton openExistDatabase = createToolbarButton(openExistDBImagePath.toString(), "Открыть базу паролей");
 	//Кнопка тулбара "Сохранение базы паролей"
-	private static JButton saveCurrentDatabase = createToolbarButton("C:\\Users\\kolan\\eclipse-workspace\\PasswordManager\\src\\images\\saveDB.png", "Сохранить базу паролей");
+	private static JButton saveCurrentDatabase = createToolbarButton(saveCurrentDBImagePath.toString(), "Сохранить базу паролей");
 	
 	//Левая панель
 	private static JPanel leftPanel; // Левая панель (Древо каталогов)
@@ -79,6 +91,7 @@ public class UI implements UIProvider {
 	//Инициализирует все визуальные компоненты 
 	private static void initializeUI()
 	{
+		System.out.println(createDBImagePath);
 		createHeaderPanel();
 		createToolBar();
 		createTopPanel();
