@@ -15,11 +15,11 @@ import javax.swing.event.ChangeListener;
 public class UI implements UIProvider {
 	//
 	private static String basePath = System.getProperty("user.dir");
-	//
+	//Путь иконки "Создание новой базы паролей"
 	private static Path createDBImagePath = Paths.get(basePath+"\\src", "images", "createDB.png");
-	//
+	//Путь иконки "Открытие базы паролей"
 	private static Path openExistDBImagePath = Paths.get(basePath+"\\src", "images", "openDB.png");
-	//
+	//Путь иконки "Сохранение базы паролей"
 	private static Path saveCurrentDBImagePath = Paths.get(basePath+"\\src", "images", "saveDB.png");
 	
 	//Инстанс UI
