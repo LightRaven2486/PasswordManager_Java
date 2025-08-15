@@ -20,7 +20,6 @@ public class Logic {
 	
 	private void setupEventListeners()
 	{	
-		
 		JTable centerTable = ui.getCenterTable(); //Получаем центральный список
 		JFrame mainFrame = ui.getMainFrame(); //Получаем главное окно
 		JMenuItem editItem = ui.getEditItem(); //Получаем кнопку контесткного меню ячейки "Изменить"
