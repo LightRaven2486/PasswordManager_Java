@@ -1,8 +1,11 @@
 package core;
 
+import java.sql.*;
+
 public class Data {
 
 	//Данные
+	private static Connection conn;
 	private static String[] columnData = {};
     private static Object[][] cellData = {};
 	
