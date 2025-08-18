@@ -6,6 +6,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -189,25 +190,26 @@ public class Logic {
                 {
                 	JOptionPane.showMessageDialog(createDataBaseDialog, "Данный путь не существует!", "Ошибка", JOptionPane.ERROR_MESSAGE);	
                 }
-                else if (password.isEmpty())
+                else if (password.isEmpty() && password.length() < 8)
                 {
-                	JOptionPane.showMessageDialog(createDataBaseDialog, "Мастер пароль не должен быть пустым!", "Ошибка", JOptionPane.ERROR_MESSAGE);
+                	JOptionPane.showMessageDialog(createDataBaseDialog, "Мастер пароль не должен быть пустым и иметь более 8 символов!", "Ошибка", JOptionPane.ERROR_MESSAGE);
                 }
                 else 
                 {
                 	ui.UpdateRootTreeNode(name);
                 	try 
                 	{
-						Connection dbConnection = data.CreateNewDatabase(path + File.separator + name + ".db");
-						dbConnection.createStatement().execute
-						(
-								"CREATE TABLE IF NOT EXISTS users "
-								+ "(id INTEGER PRIMARY KEY NOT NULL, "
-								+ "name VARCHAR(55))"	
-						);
+                		String url = path + File.separator + name + ".db";
+						Connection dbConnection = data.CreateNewDatabase(url);
+						dbConnection.createStatement().execute(data.defaultTable);
+						PreparedStatement pstmt = dbConnection.prepareStatement("INSERT INTO passwords(id, Название, Пользователь, Пароль, Сайт) VALUES(?, ?, ?, ?, ?)");
+						pstmt.setString(2, "Windows 10");
+						pstmt.setString(3, "Bobr1231");
+						pstmt.setString(4, password);
+						pstmt.setString(5, "https://www.figma.com/design/jAhZ48tfNJst4Iqdz7NTWg/---?node-id=0-1&p=f");
+						pstmt.executeUpdate();
 						Statement stmt = dbConnection.createStatement();
-						ResultSet rs = stmt.executeQuery("SELECT * FROM users");
-						
+						ResultSet rs = stmt.executeQuery("SELECT * FROM passwords");
 						centerTable.setModel(BuildTableModel(rs));
 						dbConnection.close();
 					}
