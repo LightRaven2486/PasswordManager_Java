@@ -32,17 +32,14 @@ public class Logic {
 		JMenuItem deleteItem = ui.getDeleteItem(); //Получаем кнопку контесткного меню ячейки "Удалить"
 		JPopupMenu cellPopupMenu = ui.getCellPopupMenu(); //Получаем контесткное меню ячейки
 		JButton createNewDatabase = ui.getCreateDataBaseButtonIcon(); //Получаем кнопку с иконкой создания базы данных
-		JDialog createDataBaseDialog = ui.getCreateDataBaseDialog();
-		JButton browseDataBasePathButton = ui.getBrowseDataBasePathButton();
+		JDialog createDataBaseDialog = ui.getCreateDataBaseDialog(); //Диалог создания базы данных
+		JButton browseDataBasePathButton = ui.getBrowseDataBasePathButton(); //Кнопка выбора пути базы данных
 		JTextField dataBasePathField = ui.getDataBasePathField();
 		JTextField dataBaseNameField = ui.getDataBaseNameField();
 		JPasswordField masterPasswordDataBaseField = ui.getMasterPasswordDataBaseField();
 		//JButton generateMasterPasswordButton = ui.getGenerateMasterPasswordButton();
 		JButton createDataBaseButton = ui.getCreateDataBaseButton();
 		JButton cancelCreateDataBaseButton = ui.getCancelCreateDataBaseButton();
-		
-		String[] columnData = data.getColumnData(); //Получаем список названий колонок
-		Object[][] cellData = data.getCellData(); //Получаем данные в центральном списке
 
 		
 		// Добавляем слушатель окна
@@ -65,15 +62,6 @@ public class Logic {
                 // Если "Нет", ничего не делаем
             }
         });
-		
-		// Делаем все ячейки нередактируемыми
-        DefaultTableModel model = new DefaultTableModel(cellData, columnData) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Отключаем редактирование всех ячеек
-            }
-        };
-        centerTable.setModel(model); //
 		
         //Добавляем обработчик для двойного клика
 		centerTable.addMouseListener(new MouseAdapter() {
