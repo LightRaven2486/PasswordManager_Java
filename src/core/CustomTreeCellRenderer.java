@@ -1,6 +1,8 @@
 package core;
 import java.awt.Color;
 import java.awt.Component;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -10,8 +12,11 @@ import javax.swing.tree.TreeCellRenderer;
 
 public class CustomTreeCellRenderer extends DefaultTreeCellRenderer {
 
-	private final Icon folderIcon = new ImageIcon("C:\\Users\\kolan\\eclipse-workspace\\PasswordManager\\src\\images\\treeCatalog.png"); // Иконка папки
-    private final Icon fileIcon = new ImageIcon("C:\\Users\\kolan\\eclipse-workspace\\PasswordManager\\src\\images\\windowsIcon.png"); // Иконка файла
+	private static String basePath = System.getProperty("user.dir");
+	private static Path folderIconPath = Paths.get(basePath+"\\src", "images", "treeCatalog.png"); // Путь к иконке папки
+	private static Path fileIconPath = Paths.get(basePath+"\\src", "images", "windowsIcon.png"); // Путь к иконке файла
+    private final Icon folderIcon = new ImageIcon(folderIconPath.toString()); // Иконка файла
+    private final Icon fileIcon = new ImageIcon(fileIconPath.toString()); // Иконка файла
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
