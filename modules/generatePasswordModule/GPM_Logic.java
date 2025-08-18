@@ -1,5 +1,6 @@
 package generatePasswordModule;
 
+//Импорты библиотек
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.security.SecureRandom;
@@ -18,6 +19,7 @@ public class GPM_Logic {
 	private GPM_UI gpm_ui;
 	private GPM_Data gpm_data;
 	
+	//
 	public GPM_Logic(GPM_UI gpm_ui, GPM_Data gpm_data, UI ui)
 	{
 		this.ui = ui;
@@ -28,6 +30,7 @@ public class GPM_Logic {
 	
 	private static int passwordSliderValue = 24;
 	
+	//
 	private void setupGPM_LogicEventListeners()
 	{
 		JButton generateMasterPasswordButton = gpm_ui.getGenerateMasterPasswordButton();
@@ -187,4 +190,6 @@ public class GPM_Logic {
 			}
 		});
 	}
+	
+	
 }

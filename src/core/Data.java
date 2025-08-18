@@ -5,7 +5,6 @@ import java.sql.*;
 public class Data {
 
 	//Данные
-	private static Connection conn;
 	private static String[] columnData = {};
     private static Object[][] cellData = {};
 	
@@ -14,9 +13,10 @@ public class Data {
 		//
 	}
 	
-	private static void loadData()
+	public Connection CreateNewDatabase(String dbPath) throws SQLException 
 	{
-		
+		String url = "jdbc:sqlite:" + dbPath;
+		return DriverManager.getConnection(url);
 	}
 	
 	public void updateСolumnNames(String[] columns, Object[][] cells)

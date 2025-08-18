@@ -5,6 +5,11 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class Logic {
@@ -191,6 +196,25 @@ public class Logic {
                 else 
                 {
                 	ui.UpdateRootTreeNode(name);
+                	try 
+                	{
+						Connection dbConnection = data.CreateNewDatabase(path + File.separator + name + ".db");
+						dbConnection.createStatement().execute
+						(
+								"CREATE TABLE IF NOT EXISTS users "
+								+ "(id INTEGER PRIMARY KEY NOT NULL, "
+								+ "name VARCHAR(55))"	
+						);
+						Statement stmt = dbConnection.createStatement();
+						ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+						
+						centerTable.setModel(BuildTableModel(rs));
+						dbConnection.close();
+					}
+                	catch (SQLException sqlEx)
+                	{
+						sqlEx.printStackTrace();
+					}
                     createDataBaseDialog.dispose();
                 }
             }
@@ -202,5 +226,30 @@ public class Logic {
             	createDataBaseDialog.dispose();
             }
         });
+	}
+	
+	private static DefaultTableModel BuildTableModel(ResultSet rs) throws SQLException 
+	{
+		ResultSetMetaData metaData = rs.getMetaData();
+		
+		int columnCount = metaData.getColumnCount();
+		String[] columnNames = new String[columnCount];
+		for (int i = 1; i <= columnCount; i++)
+		{
+			columnNames[i-1] = metaData.getColumnName(i);
+		}
+		
+		DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+		while (rs.next())
+		{
+			Object[] row = new Object[columnCount];
+			for (int i = 1; i <= columnCount; i++)
+			{
+				row[i-1] = rs.getObject(i);
+			}
+			model.addRow(row);
+		}
+		
+		return model;
 	}
 }
